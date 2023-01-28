@@ -19,5 +19,10 @@ public class BasicController {
 
         return "basic/text-basic";
     }
-
+    @GetMapping("/text-unescaped")
+    public String textUnescape(Model model){
+        model.addAttribute("data", "Hello <b>Spring</b>");
+        model.addAttribute("image", "<img src=\"https://user-images.githubusercontent.com/104331549/215254343-49d2fe75-ca16-4380-ba4f-dabd373520b6.png\">");
+        return "basic/text-unescaped";
+    }
 }
