@@ -62,11 +62,19 @@ public class BasicController {
     @GetMapping("/basic-objects")
     public String basicObjects(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model){
         session.setAttribute("sessionData", "Hello Session");
-//        model.addAttribute("request", request);
-//        model.addAttribute("response", response);
+        model.addAttribute("request", request);
+        model.addAttribute("response", response);
 //        model.addAttribute("session", session);
         return "basic/basic-objects";
     }
+
+    @GetMapping("/link")
+    public String link(Model model){
+        model.addAttribute("param1" , "data1");
+        model.addAttribute("param2" , "data2");
+        return "basic/link";
+    }
+
 
     @Component("helloBean")
     static class HelloBean {
