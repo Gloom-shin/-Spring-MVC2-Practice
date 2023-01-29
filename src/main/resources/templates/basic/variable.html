@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>SpringEL 표현식</h1>
+<ul>Object(class)
+    <li><span th:text="${user.age}"></span></li>
+    <li><span th:text="${user['username']}"></span></li>
+    <li><span th:text="${user.getUsername()}"></span></li>
+</ul>
+<ul>List
+    <li><span th:text="${users[0].username}"></span></li>
+    <li><span th:text="${users[0]['username']}"></span></li>
+    <li><span th:text="${users[0].getUsername()}"></span></li>
+</ul>
+<ul>Map
+    <li><span th:text="${userMap['userA'].getUsername()}"></span></li>
+    <li><span th:text="${userA.getAge()}"></span></li>
+    <li><span th:text="${userB.username}"></span></li>
+</ul>
+<ul th:with="first=${users[0]}"> 지역 변수
+    <li><span th:text ="${first.username}"></span></li>
+</ul>
+
+</body>
+</html>
