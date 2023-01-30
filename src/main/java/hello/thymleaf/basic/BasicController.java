@@ -98,6 +98,15 @@ public class BasicController {
         addUsers(model);
         return "basic/each";
     }
+
+    @GetMapping("/condition")
+    public String condition(Model model){
+        addUsers(model);
+        return "basic/condition";
+    }
+
+
+
     private void addUsers(Model model){
         List<User> list = new ArrayList<>();
         list.add(new User("UserA", 10));
@@ -105,8 +114,6 @@ public class BasicController {
         list.add(new User("UserC", 30));
         model.addAttribute("users", list);
     }
-
-
     @Component("helloBean")
     static class HelloBean {
         public String hello(String data) {
