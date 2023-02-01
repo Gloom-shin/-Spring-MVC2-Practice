@@ -20,6 +20,10 @@ public class Item {
 
     }
 
+    public Item(Boolean open) {
+        this.open = open;
+    }
+
     public Item(String itemName, Integer price, Integer quantity) {
         this.itemName = itemName;
         this.price = price;

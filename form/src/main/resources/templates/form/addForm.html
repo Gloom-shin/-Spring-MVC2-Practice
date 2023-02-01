@@ -36,9 +36,10 @@
         <div> 판매 여부 </div>
         <div>
             <div class="form-check">
-                <label for="open"> 판매오픈</label>
-                <input type="checkbox" id="open" name="open" class="form-check-input">
-                <input type="hidden" name="__open"/> <!-- 히든 필드 추가 -->
+                <label> 판매오픈
+                <input type="checkbox" id="open" th:field="*{open}" class="form-check-input">
+                </label>
+
             </div>
         </div>
 
