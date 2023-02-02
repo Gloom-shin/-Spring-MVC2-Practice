@@ -1,7 +1,7 @@
 package hello.itemservice.domain.item;
 
 public enum ItemType {
-    BOOK("도서"), FOOD("식품"), ETC("카타");
+    BOOK("도서"), FOOD("식품"), ETC("기타");
 
     private final String itemTypeString;
 
@@ -12,4 +12,6 @@ public enum ItemType {
     public String getItemTypeString() {
         return itemTypeString;
     }
+
+
 }
