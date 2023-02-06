@@ -4,10 +4,10 @@ import hello.itemservice.domain.item.DeliveryCode;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import hello.itemservice.domain.item.ItemType;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,10 @@ import java.util.Map;
 public class FormItemController {
 
     private final ItemRepository itemRepository;
-
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
     @ModelAttribute("regions")
     public Map<String, String> r(){
         Map<String, String> regions = new LinkedHashMap<>();
@@ -47,7 +50,6 @@ public class FormItemController {
     private static List<DeliveryCode> getDeliveryCodes() {
         List<DeliveryCode> deliveryCodes = new ArrayList<>();
         deliveryCodes.add(new DeliveryCode("FAST", "빠른 배송"));
-        deliveryCodes.add(new DeliveryCode("NORMAL", "일반 배송"));
         deliveryCodes.add(new DeliveryCode("SLOW", "느린 배송"));
         return deliveryCodes;
     }
@@ -58,6 +60,13 @@ public class FormItemController {
         model.addAttribute("items", items);
         return "form/items";
     }
+
+    @GetMapping("content1")
+    public String layout(Model model) {
+        model.addAttribute("title", "");
+        return "content1";
+    }
+
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
