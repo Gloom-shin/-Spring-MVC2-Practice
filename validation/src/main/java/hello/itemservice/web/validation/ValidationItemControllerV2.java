@@ -4,6 +4,9 @@ import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,6 +25,8 @@ import java.util.Map;
 @RequestMapping("/validation/v2/items")
 @RequiredArgsConstructor
 public class ValidationItemControllerV2 {
+
+
 
     private final ItemRepository itemRepository;
 
@@ -117,7 +122,7 @@ public class ValidationItemControllerV2 {
         redirectAttributes.addAttribute("status", true);
         return "redirect:/validation/v2/items/{itemId}";
     }
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV3(@ModelAttribute Item item,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes) {
@@ -138,6 +143,43 @@ public class ValidationItemControllerV2 {
             int resultPrice = item.getPrice() * item.getQuantity(); // 타입 에러발생
             if(resultPrice< 10000){
                 bindingResult.addError(new ObjectError("item", new String[]{"totalPriceMin"}, new Object[]{10000, resultPrice},null));
+            }
+        }
+        // 검증에 실패하면 다시 입력 폼으로
+        if(bindingResult.hasErrors()){
+            log.info("errors={}", bindingResult);
+            log.info("BindingFailure={}", bindingResult.getFieldError().isBindingFailure());
+            log.info("rejectedValue ={}", bindingResult.getFieldError().getRejectedValue());
+
+            return "validation/v2/addForm";
+        }
+
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+    @PostMapping("/add")
+    public String addItemV4(@ModelAttribute Item item,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) {
+
+
+        //검증 로직
+        if(!StringUtils.hasText(item.getItemName())){
+            bindingResult.rejectValue("itemName","required");
+        }
+        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000){
+            bindingResult.rejectValue("price", "range", new Object[]{9999}, null);
+        }
+        if (item.getQuantity() == null || item.getQuantity() >= 9999){
+            bindingResult.rejectValue("quantity","max", new Object[]{9999}, null);
+        }
+        // 특정 필드가 아닌 복합 룰 검증
+        else if(item.getPrice() != null ||item.getQuantity() != null){
+            int resultPrice = item.getPrice() * item.getQuantity(); // 타입 에러발생
+            if(resultPrice< 10000){
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice},null);
             }
         }
         // 검증에 실패하면 다시 입력 폼으로
