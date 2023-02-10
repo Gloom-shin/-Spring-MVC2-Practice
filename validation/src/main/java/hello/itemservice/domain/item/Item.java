@@ -14,7 +14,7 @@ public class Item {
     @NotBlank
     private String itemName;
     @NotNull
-    @Range(min = 1000, max = 1000000)
+    @Range(min = 1000, max = 1000000, message = "{item.price.Range}")
     private Integer price;
     @NotNull
     @Max(9999)
