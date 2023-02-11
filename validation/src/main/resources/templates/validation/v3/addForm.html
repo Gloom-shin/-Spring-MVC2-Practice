@@ -32,7 +32,7 @@
                    th:errorclass="field-error"
                    class="form-control"
                    placeholder="이름을 입력하세요">
-            <div p class="field-error" th:errors="*{itemName}">
+            <div class="field-error" th:errors="*{itemName}">
                 상품명 오류 메시지
             </div>
 
@@ -42,7 +42,7 @@
             <input type="text" id="price" th:field="*{price}" class="form-control"
                    th:errorclass="field-error"
                    placeholder="가격을 입력하세요">
-            <div p class="field-error" th:errors="*{price}">
+            <div class="field-error" th:errors="*{price}">
                 상품명 오류 메시지
             </div>
         </div>
@@ -51,7 +51,7 @@
             <input type="text" id="quantity" th:field="*{quantity}" class="form-control"
                    th:errorclass="field-error"
                    placeholder="수량을 입력하세요">
-            <div p class="field-error" th:errors="*{quantity}">
+            <div class="field-error" th:errors="*{quantity}">
                 상품명 오류 메시지
             </div>
         </div>

@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ScriptAssert(lang = "javascript", script = "_this.startDate.before(_this.endDate)")
 public class Item {
 
     private Long id;
@@ -31,13 +30,5 @@ public class Item {
         this.price = price;
         this.quantity = quantity;
     }
-    public void checkBenefit(){
-        try (Context context = Context.create("js")) {
 
-            // 2 출력
-            context.eval("js", "_this.price * _this.quantity >= 10000");
-        } catch (Exception e) {
-            System.err.println();
-        }
-    }
 }
