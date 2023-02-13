@@ -40,10 +40,9 @@ public class BeanValidationTest {
         try (Context context = Context.create("js")) {
 
             // 2 출력
-            context.eval("js", "print( Math.min(2, 3) )");
+            context.eval("js", "console.log( Math.min(2, 3) )");
         } catch (Exception e) {
             System.err.println();
         }
-
     }
 }
