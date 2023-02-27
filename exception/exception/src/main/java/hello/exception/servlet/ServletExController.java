@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class ServletExController {
 
     @GetMapping("/test")
-    public String test(){
+    public String test(RedirectAttributes redirectAttributes){
         return "error-page/404";
     }
 
