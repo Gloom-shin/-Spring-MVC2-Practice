@@ -27,7 +27,7 @@ public class FileStore {
         if(multipartFile.isEmpty()){
             return null;
         }
-        String originalFileName = multipartFile.getName();
+        String originalFileName = multipartFile.getOriginalFilename();
         String storeFileName = createStoreName(originalFileName);
         // 파일 복사 저장
         multipartFile.transferTo(new File(storeFileName));
@@ -38,7 +38,7 @@ public class FileStore {
     private String createStoreName(String originalFileName) {
         String ext = extractExt(originalFileName);
         String uuid = UUID.randomUUID().toString();
-        return uuid+"."+ext;
+        return uuid+"."+ ext;
     }
 
     private String extractExt(String originalFileName) {
